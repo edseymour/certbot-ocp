@@ -1,4 +1,4 @@
-FROM rhel7.2
+FROM rhel
 
 USER root
 ADD https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm /epel-release-latest-7.noarch.rpm
