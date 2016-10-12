@@ -16,8 +16,7 @@ else
 fi
 
 echo "*** Creating secret"
-OC_OPTS="--token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)  --insecure-skip-tls-verify https://kubernetes.default.svc.cluster.local"
-
+OC_OPTS="--token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)  --insecure-skip-tls-verify --server=https://kubernetes.default.svc.cluster.local"
 
 EXISTS=$(oc get secret letsencrypt $OC_OPTS --no-headers | wc -l)
 [[ $EXISTS -gt 0 ]] && oc delete secret letsencrypt $OC_OPTS && echo "*** deleted existing secret"
