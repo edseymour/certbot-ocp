@@ -4,12 +4,12 @@ USER root
 ADD https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm /epel-release-latest-7.noarch.rpm
 RUN yum install -y /epel-release-latest-7.noarch.rpm
 RUN yum install --enablerepo=rhel-7-server-optional-rpms --enablerepo=rhel-7-server-ose-3.3-rpms -y certbot atomic-openshift-clients && yum clean all
-RUN mkdir -p /opt/letsencrypt/certs && mkdir /etc/letsencrypt && chmod 666 /etc/letsencrypt && mkdir -p /var/lib/letsencrypt && chmod 666 /var/lib/letsencrypt
+RUN mkdir -p /opt/letsencrypt/certs && mkdir /etc/letsencrypt && chmod 666 /etc/letsencrypt && mkdir -p /var/lib/letsencrypt && chmod 666 /var/lib/letsencrypt && mkdir -p /var/log/letsencrypt && chmod 666 /var/log/letsencrypt
 WORKDIR /opt/letsencrypt
 ADD get-certs.sh /opt/letsencrypt/get-certs.sh 
-RUN chmod +x /opt/letsencrypt/get-certs.sh && chmod 777 /opt/letsencrypt/certs && chown 1001:1001 -R /opt/letsencrypt && chown 1001:1001 /etc/letsencrypt && chown 1001:1001 /var/lib/letsencrypt
+RUN chmod +x /opt/letsencrypt/get-certs.sh && chmod 777 /opt/letsencrypt/certs && chown 1001:1001 -R /opt/letsencrypt && chown 1001:1001 /etc/letsencrypt && chown 1001:1001 /var/lib/letsencrypt && chown 1001:1001 /var/log/letsencrypt
 
 USER 1001
-VOLUME ['/opt/letsencrypt/certs','/etc/letsencrypt', '/var/lib/letsencrypt']
+VOLUME ['/opt/letsencrypt/certs','/etc/letsencrypt', '/var/lib/letsencrypt', '/var/log/letsencrypt']
 
 ENTRYPOINT ['/opt/letsencrypt/get-certs.sh']
