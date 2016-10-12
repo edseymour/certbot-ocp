@@ -7,7 +7,7 @@ RUN yum install --enablerepo=rhel-7-server-optional-rpms --enablerepo=rhel-7-ser
 RUN mkdir -p /opt/letsencrypt/work/{certs,log,work,config} 
 WORKDIR /opt/letsencrypt
 ADD get-certs.sh /opt/letsencrypt/get-certs.sh 
-RUN chmod +x /opt/letsencrypt/get-certs.sh && chmod 777 /opt/letsencrypt/certs && chown 1001:1001 -R /opt/letsencrypt  && chmod 666 -R /opt/letsencrypt/work
+RUN chmod +x /opt/letsencrypt/get-certs.sh && chmod 777 /opt/letsencrypt/work && chown 1001:1001 -R /opt/letsencrypt  
 
 USER 1001
 VOLUME ['/opt/letsencrypt/work']
