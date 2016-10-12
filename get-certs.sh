@@ -4,14 +4,20 @@ if [[ "$CERTHOST" == "" ]]; then
 
   echo "*** Running certbot in standalone mode, expecting additional parameters (e.g. -d options) to be passed ***"
   echo "*** certbot certonly --standalone --cert-path /opt/letsencrypt/certs $@"
-  certbot certonly --standalone --cert-path /opt/letsencrypt/certs $@
+  certbot certonly --standalone --logs-dir=/opt/letsencrypt/work/logs \
+--config-dir=/opt/letsencrypt/work/config \
+--work-dir=/opt/letsencrypt/work/work \
+--cert-path /opt/letsencrypt/work/certs $@
 
 else
 
   echo "*** Running certbot in standalone mode for host: $CERTHOST ***"
   echo "*** certbot certonly --standalone --cert-path /opt/letsencrypt/certs -d $CERTHOST"
 
-  certbot certonly --standalone --cert-path /opt/letsencrypt/certs -d $CERTHOST
+  certbot certonly --standalone --logs-dir=/opt/letsencrypt/work/logs \
+--config-dir=/opt/letsencrypt/work/config \
+--work-dir=/opt/letsencrypt/work/work \
+--cert-path /opt/letsencrypt/work/certs -d $CERTHOST
 
 fi
 
